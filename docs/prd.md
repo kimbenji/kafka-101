@@ -89,7 +89,6 @@ kafka-guidance-101/
 │   │   └── appendix/
 ├── examples/             # 예제 프로젝트
 │   ├── quick-start/
-│   ├── basic-producer-consumer/
 │   └── order-system/
 ├── static/               # 정적 자산
 ├── docker/               # Docker Compose 파일

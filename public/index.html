@@ -1,8 +1,426 @@
-<!doctype html><html lang=ko dir=auto data-theme=auto><head><meta name=generator content="Hugo 0.153.2"><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Kafka Guidance 101</title><meta name=description content="Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드"><meta name=author content><link rel=canonical href=https://example.org/><link crossorigin=anonymous href=/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css integrity="sha256-NDzEgLn/yPBMy+XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as=style><link rel=icon href=https://example.org/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://example.org/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://example.org/favicon-32x32.png><link rel=apple-touch-icon href=https://example.org/apple-touch-icon.png><link rel=mask-icon href=https://example.org/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=ko href=https://example.org/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://example.org/"><meta property="og:site_name" content="Kafka Guidance 101"><meta property="og:title" content="Kafka Guidance 101"><meta property="og:description" content="Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드"><meta property="og:locale" content="ko-kr"><meta property="og:type" content="website"><meta name=twitter:card content="summary"><meta name=twitter:title content="Kafka Guidance 101"><meta name=twitter:description content="Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"Kafka Guidance 101","url":"https://example.org/","description":"Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드","logo":"https://example.org/favicon.ico","sameAs":[]}</script></head><body class=list id=top><header class=header><nav class=nav><div class=logo><a href=https://example.org/ accesskey=h title="Kafka Guidance 101 (Alt + H)">Kafka Guidance 101</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://example.org/docs/ title=문서><span>문서</span></a></li><li><a href=https://github.com/username/kafka-guidance-101 title=GitHub><span>GitHub</span>&nbsp;
-<svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg></a></li></ul></nav></header><main class=main><div class=post-content><p>Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드입니다.</p><h2 id=특징>특징<a hidden class=anchor aria-hidden=true href=#특징>#</a></h2><ul><li><strong>First Principles</strong> - 왜 필요한지부터 설명하여 본질적 이해를 돕습니다.</li><li><strong>실행 가능한 예제</strong> - 모든 예제는 Spring Boot 프로젝트로 직접 실행 가능합니다.</li><li><strong>시각적 다이어그램</strong> - Mermaid 다이어그램으로 개념을 시각적으로 이해합니다.</li></ul><p><a href=/docs/>시작하기 →</a></p></div></main><footer class=footer><span>&copy; 2025 <a href=https://example.org/>Kafka Guidance 101</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
+<!DOCTYPE html>
+<html lang="ko" dir="auto" data-theme="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.153.2"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Kafka Guidance 101</title>
+
+<meta name="description" content="Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드">
+<meta name="author" content="">
+<link rel="canonical" href="https://YOUR_USERNAME.github.io/kafka-101/">
+<link crossorigin="anonymous" href="/kafka-101/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://YOUR_USERNAME.github.io/kafka-101/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://YOUR_USERNAME.github.io/kafka-101/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://YOUR_USERNAME.github.io/kafka-101/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://YOUR_USERNAME.github.io/kafka-101/apple-touch-icon.png">
+<link rel="mask-icon" href="https://YOUR_USERNAME.github.io/kafka-101/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="ko" href="https://YOUR_USERNAME.github.io/kafka-101/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true
+      }
+    });
+
+    
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(codeBlock) {
+      var pre = codeBlock.parentElement;
+      var div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = codeBlock.textContent;
+      pre.parentNode.replaceChild(div, pre);
+    });
+
+    
+    mermaid.run();
+  });
+</script>
+<style>
+  .mermaid {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+<meta property="og:url" content="https://YOUR_USERNAME.github.io/kafka-101/">
+  <meta property="og:site_name" content="Kafka Guidance 101">
+  <meta property="og:title" content="Kafka Guidance 101">
+  <meta property="og:description" content="Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드">
+  <meta property="og:locale" content="ko-kr">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kafka Guidance 101">
+<meta name="twitter:description" content="Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Kafka Guidance 101",
+  "url": "https://YOUR_USERNAME.github.io/kafka-101/",
+  "description": "Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드",
+  "logo": "https://YOUR_USERNAME.github.io/kafka-101/favicon.ico",
+  "sameAs": [
+      
+  ]
+}
+</script>
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://YOUR_USERNAME.github.io/kafka-101/" accesskey="h" title="Kafka Guidance 101 (Alt + H)">Kafka Guidance 101</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://YOUR_USERNAME.github.io/kafka-101/docs/" title="문서">
+                    <span>문서</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/YOUR_USERNAME/kafka-101" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<div class="post-content"><p>Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드입니다.</p>
+<h2 id="특징">특징<a hidden class="anchor" aria-hidden="true" href="#특징">#</a></h2>
+<ul>
+<li><strong>First Principles</strong> - 왜 필요한지부터 설명하여 본질적 이해를 돕습니다.</li>
+<li><strong>실행 가능한 예제</strong> - 모든 예제는 Spring Boot 프로젝트로 직접 실행 가능합니다.</li>
+<li><strong>시각적 다이어그램</strong> - Mermaid 다이어그램으로 개념을 시각적으로 이해합니다.</li>
+</ul>
+<p><a href="/docs/">시작하기 →</a></p>
+
+
+</div>
+
+<article class="first-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">용어 사전
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Kafka 용어 사전 Kafka 관련 주요 용어를 정리합니다.
+A ACK (Acknowledgment) Producer가 메시지 전송 성공을 확인받는 방식. acks=0, acks=1, acks=all 옵션이 있음. → 심화 개념
+Auto Offset Reset Consumer Group이 처음 시작하거나 Offset 정보가 없을 때 읽기 시작할 위치. earliest 또는 latest. → Consumer Group &amp; Offset
+B Broker Kafka 서버. 메시지를 저장하고 Consumer에게 전달하는 역할. → 핵심 구성요소
+Bootstrap Servers Kafka 클러스터에 처음 연결할 때 사용하는 Broker 주소 목록. localhost:9092 형태.
+C Commit (Offset Commit) Consumer가 특정 Offset까지 메시지를 성공적으로 처리했음을 Kafka에 알리는 것. → Consumer Group &amp; Offset
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 용어 사전" href="https://YOUR_USERNAME.github.io/kafka-101/docs/appendix/glossary/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">핵심 구성요소
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Kafka 핵심 구성요소 Kafka의 5가지 핵심 구성요소를 이해합니다.
+왜 Kafka가 필요한가? Kafka는 세 가지 본질적 문제를 해결합니다:
+비동기 처리: 요청-응답을 분리하여 시스템 간 결합도를 낮춤 고용량 처리: 대량의 데이터를 실시간으로 처리 고가용성: 장애 상황에서도 데이터 유실 없이 서비스 지속 flowchart TB subgraph Problem[&#34;기존 방식의 문제&#34;] A[Service A] --&gt;|동기 호출| B[Service B] B --&gt;|동기 호출| C[Service C] end subgraph Solution[&#34;Kafka 도입 후&#34;] D[Service A] --&gt;|발행| E[Kafka] E --&gt;|구독| F[Service B] E --&gt;|구독| G[Service C] end 전체 구조 flowchart LR subgraph Producers[&#34;Producer&#34;] P1[Producer 1] P2[Producer 2] end subgraph Kafka[&#34;Kafka Cluster&#34;] subgraph Broker1[&#34;Broker 1&#34;] T1P0[Topic A\nPartition 0] end subgraph Broker2[&#34;Broker 2&#34;] T1P1[Topic A\nPartition 1] end end subgraph Consumers[&#34;Consumer Group&#34;] C1[Consumer 1] C2[Consumer 2] end P1 --&gt; T1P0 P2 --&gt; T1P1 T1P0 --&gt; C1 T1P1 --&gt; C2 1. Producer (생산자) 역할: 메시지를 Kafka에 발행하는 클라이언트
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 핵심 구성요소" href="https://YOUR_USERNAME.github.io/kafka-101/docs/concepts/core-components/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">환경 구성
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>환경 구성 Spring Boot에서 Kafka를 사용하기 위한 환경 설정을 안내합니다.
+Docker로 Kafka 실행 docker-compose.yml version: &#39;3.8&#39; services: kafka: image: apache/kafka:3.6.1 hostname: kafka container_name: kafka ports: - &#34;9092:9092&#34; environment: KAFKA_NODE_ID: 1 KAFKA_PROCESS_ROLES: broker,controller KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093 KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092 KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093 KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 KAFKA_LOG_DIRS: /var/lib/kafka/data CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk volumes: - kafka-data:/var/lib/kafka/data volumes: kafka-data: 실행 명령 # 시작 docker-compose up -d # 상태 확인 docker-compose ps # 로그 확인 docker-compose logs -f kafka # 종료 docker-compose down # 데이터 포함 종료 docker-compose down -v Spring Boot 의존성 build.gradle.kts plugins { java id(&#34;org.springframework.boot&#34;) version &#34;3.2.1&#34; id(&#34;io.spring.dependency-management&#34;) version &#34;1.1.4&#34; } dependencies { // Kafka implementation(&#34;org.springframework.kafka:spring-kafka&#34;) // Web (REST API용) implementation(&#34;org.springframework.boot:spring-boot-starter-web&#34;) // Test testImplementation(&#34;org.springframework.boot:spring-boot-starter-test&#34;) testImplementation(&#34;org.springframework.kafka:spring-kafka-test&#34;) } Maven (pom.xml) &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.kafka&lt;/groupId&gt; &lt;artifactId&gt;spring-kafka&lt;/artifactId&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;/dependency&gt; &lt;/dependencies&gt; application.yml 설정 기본 설정 spring: application: name: kafka-example kafka: # Kafka 브로커 주소 bootstrap-servers: localhost:9092 # Producer 설정 producer: key-serializer: org.apache.kafka.common.serialization.StringSerializer value-serializer: org.apache.kafka.common.serialization.StringSerializer acks: all retries: 3 # Consumer 설정 consumer: group-id: my-group auto-offset-reset: earliest key-deserializer: org.apache.kafka.common.serialization.StringDeserializer value-deserializer: org.apache.kafka.common.serialization.StringDeserializer enable-auto-commit: true 설정 항목 상세 Producer 설정 설정 설명 권장값 acks 전송 확인 수준 all (프로덕션) retries 재시도 횟수 3 batch-size 배치 크기 (bytes) 16384 linger-ms 배치 대기 시간 0 buffer-memory 버퍼 메모리 33554432 spring: kafka: producer: acks: all retries: 3 batch-size: 16384 properties: linger.ms: 1 buffer.memory: 33554432 enable.idempotence: true Consumer 설정 설정 설명 권장값 group-id Consumer Group ID 서비스명 auto-offset-reset 초기 Offset earliest enable-auto-commit 자동 커밋 true max-poll-records 한번에 가져올 최대 레코드 500 spring: kafka: consumer: group-id: order-service auto-offset-reset: earliest enable-auto-commit: true properties: max.poll.records: 500 max.poll.interval.ms: 300000 JSON 메시지 처리 의존성 추가 dependencies { implementation(&#34;com.fasterxml.jackson.core:jackson-databind&#34;) } 설정 spring: kafka: producer: value-serializer: org.springframework.kafka.support.serializer.JsonSerializer consumer: value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer properties: spring.json.trusted.packages: &#34;com.example.*&#34; 사용 예시 // 도메인 클래스 public record OrderEvent( String orderId, String status, LocalDateTime timestamp ) {} // Producer kafkaTemplate.send(&#34;orders&#34;, orderId, new OrderEvent(orderId, &#34;CREATED&#34;, now())); // Consumer @KafkaListener(topics = &#34;orders&#34;) public void consume(OrderEvent event) { log.info(&#34;주문 이벤트: {}&#34;, event); } 프로필별 설정 application.yml (공통) spring: kafka: bootstrap-servers: ${KAFKA_SERVERS:localhost:9092} application-local.yml spring: kafka: bootstrap-servers: localhost:9092 consumer: auto-offset-reset: earliest application-prod.yml spring: kafka: bootstrap-servers: kafka-1:9092,kafka-2:9092,kafka-3:9092 producer: acks: all consumer: auto-offset-reset: latest 일반적인 오류와 해결 연결 오류 Connection to node -1 could not be established 원인: Kafka 브로커에 연결할 수 없음
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 환경 구성" href="https://YOUR_USERNAME.github.io/kafka-101/docs/examples/setup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">기본 예제
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>기본 Producer/Consumer 예제 Spring Kafka를 사용한 기본적인 메시지 송수신 구현을 설명합니다.
+Producer 구현 KafkaTemplate 주입 @Service public class MessageProducer { private final KafkaTemplate&lt;String, String&gt; kafkaTemplate; public MessageProducer(KafkaTemplate&lt;String, String&gt; kafkaTemplate) { this.kafkaTemplate = kafkaTemplate; } } Spring Boot가 자동으로 KafkaTemplate을 생성하여 주입합니다.
+동기 전송 public void sendSync(String topic, String message) { try { SendResult&lt;String, String&gt; result = kafkaTemplate.send(topic, message).get(); RecordMetadata metadata = result.getRecordMetadata(); log.info(&#34;전송 완료 - Topic: {}, Partition: {}, Offset: {}&#34;, metadata.topic(), metadata.partition(), metadata.offset()); } catch (Exception e) { log.error(&#34;전송 실패&#34;, e); throw new RuntimeException(&#34;메시지 전송 실패&#34;, e); } } sequenceDiagram participant App as Application participant KT as KafkaTemplate participant K as Kafka App-&gt;&gt;KT: send(topic, message) KT-&gt;&gt;K: 메시지 전송 K--&gt;&gt;KT: ACK KT--&gt;&gt;App: SendResult (블로킹) 비동기 전송 public void sendAsync(String topic, String message) { CompletableFuture&lt;SendResult&lt;String, String&gt;&gt; future = kafkaTemplate.send(topic, message); future.whenComplete((result, ex) -&gt; { if (ex == null) { log.info(&#34;전송 성공: {}&#34;, result.getRecordMetadata().offset()); } else { log.error(&#34;전송 실패&#34;, ex); } }); } sequenceDiagram participant App as Application participant KT as KafkaTemplate participant K as Kafka App-&gt;&gt;KT: send(topic, message) KT--&gt;&gt;App: CompletableFuture (즉시 반환) App-&gt;&gt;App: 다른 작업 계속 KT-&gt;&gt;K: 메시지 전송 K--&gt;&gt;KT: ACK KT--&gt;&gt;App: 콜백 실행 Key와 함께 전송 public void sendWithKey(String topic, String key, String message) { kafkaTemplate.send(topic, key, message); } Key 사용 시 장점:
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 기본 예제" href="https://YOUR_USERNAME.github.io/kafka-101/docs/examples/basic/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">메시지 흐름
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>메시지 흐름 Kafka에서 메시지가 발행되고 소비되는 전체 과정을 이해합니다.
+전체 흐름 개요 sequenceDiagram participant P as Producer participant B as Broker participant Part as Partition participant C as Consumer P-&gt;&gt;B: 1. 메시지 전송 B-&gt;&gt;Part: 2. Partition 선택 및 저장 B--&gt;&gt;P: 3. ACK 응답 C-&gt;&gt;B: 4. 메시지 요청 (poll) B-&gt;&gt;C: 5. 메시지 전달 C-&gt;&gt;B: 6. Offset 커밋 1단계: 메시지 발행 (Produce) Producer가 메시지를 Kafka에 전송합니다.
+flowchart LR subgraph Producer MSG[메시지 생성] SER[직렬화] PART[Partition 결정] end subgraph Kafka B[Broker] end MSG --&gt; SER --&gt; PART --&gt; B 발행 과정 메시지 생성: Key-Value 쌍으로 메시지 구성 직렬화: 객체를 바이트 배열로 변환 Partition 결정: Key 해시 또는 라운드 로빈 전송: 네트워크를 통해 Broker로 전송 // Producer 코드 예시 kafkaTemplate.send(&#34;orders&#34;, orderId, orderJson); // Topic Key Value Partition 결정 방식 flowchart TB MSG[메시지] KEY{Key 존재?} HASH[Key 해시값 % Partition 수] RR[라운드 로빈] P0[Partition 0] P1[Partition 1] P2[Partition 2] MSG --&gt; KEY KEY --&gt;|Yes| HASH KEY --&gt;|No| RR HASH --&gt; P0 HASH --&gt; P1 RR --&gt; P0 RR --&gt; P1 RR --&gt; P2 Key 있음: 동일 Key는 항상 동일 Partition으로 Key 없음: 라운드 로빈으로 균등 분배 2단계: 메시지 저장 (Store) Broker가 메시지를 Partition에 저장합니다.
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 메시지 흐름" href="https://YOUR_USERNAME.github.io/kafka-101/docs/concepts/message-flow/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">참고 자료
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>참고 자료 Kafka 학습을 위한 추가 자료들입니다.
+공식 문서 Apache Kafka 자료 설명 Apache Kafka Documentation Kafka 공식 문서 Kafka Quickstart 공식 Quick Start 가이드 Kafka APIs Producer/Consumer API 레퍼런스 Kafka Configuration 설정 옵션 전체 목록 Spring for Apache Kafka 자료 설명 Spring Kafka Reference Spring Kafka 공식 문서 Spring Kafka API Docs JavaDoc Spring Boot Kafka Properties Spring Boot 설정 옵션 Confluent 자료 설명 Confluent Documentation Confluent Platform 문서 Kafka Tutorials 실습 튜토리얼 Confluent Blog 기술 블로그 추천 서적 입문 책 저자 설명 Kafka: The Definitive Guide Neha Narkhede 외 Kafka 핵심 개념과 아키텍처 Kafka in Action Dylan Scott 실전 예제 중심 심화 책 저자 설명 Designing Event-Driven Systems Ben Stopford 이벤트 기반 아키텍처 설계 Kafka Streams in Action Bill Bejeck Kafka Streams 심화 온라인 강의 플랫폼 강의 특징 Confluent Developer Apache Kafka 101 무료, 공식 Udemy Apache Kafka Series 한글 자막 인프런 Kafka 강의들 한글 커뮤니티 포럼 &amp; Q&amp;A 사이트 설명 Stack Overflow - Kafka 기술 Q&amp;A Confluent Community Confluent 공식 포럼 Reddit r/apachekafka 커뮤니티 토론 한국 커뮤니티 사이트 설명 OKKY 한국 개발자 커뮤니티 Kafka KR (카카오톡) Kafka 오픈채팅방 블로그 &amp; 아티클 영문 Confluent Blog - 공식 기술 블로그 Martin Kleppmann’s Blog - 분산 시스템 전문가 Jay Kreps’ Blog - Kafka 창시자 한글 우아한형제들 기술블로그 - Kafka 활용 사례 카카오 기술블로그 - 대규모 Kafka 운영 네이버 D2 - 기술 아티클 도구 개발 &amp; 테스트 도구 설명 Kafka UI 웹 기반 Kafka 관리 도구 Conduktor Kafka 데스크톱 클라이언트 kcat (kafkacat) CLI 도구 모니터링 도구 설명 Kafka Exporter Prometheus 메트릭 Burrow Consumer Lag 모니터링 AKHQ 웹 관리 도구 GitHub 저장소 저장소 설명 apache/kafka Kafka 소스 코드 spring-projects/spring-kafka Spring Kafka confluentinc/examples Confluent 예제 다음 단계 이 가이드의 예제를 모두 실습한 후:
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 참고 자료" href="https://YOUR_USERNAME.github.io/kafka-101/docs/appendix/references/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Consumer Group &amp; Offset
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Consumer Group &amp; Offset 병렬 처리와 진행 상태 관리의 핵심 개념을 이해합니다.
+Consumer Group이란? Consumer Group은 동일한 목적을 가진 Consumer들의 논리적 그룹입니다.
+flowchart TB subgraph Topic[&#34;orders Topic&#34;] P0[Partition 0] P1[Partition 1] P2[Partition 2] end subgraph Group[&#34;Consumer Group: order-service&#34;] C1[Consumer 1] C2[Consumer 2] C3[Consumer 3] end P0 --&gt; C1 P1 --&gt; C2 P2 --&gt; C3 핵심 규칙 하나의 Partition은 Consumer Group 내에서 하나의 Consumer만 읽을 수 있다
+이 규칙이 중요한 이유:
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to Consumer Group & Offset" href="https://YOUR_USERNAME.github.io/kafka-101/docs/concepts/consumer-group-offset/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">주문 시스템
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>주문 시스템 예제 실무에 가까운 이벤트 기반 주문 시스템을 구현합니다.
+시스템 아키텍처 flowchart TB subgraph Client[&#34;클라이언트&#34;] API[REST API 호출] end subgraph OrderService[&#34;주문 서비스&#34;] CTRL[OrderController] PROD[OrderProducer] end subgraph Kafka[&#34;Kafka&#34;] TOPIC[order-events Topic] end subgraph Consumers[&#34;이벤트 처리&#34;] CONS[OrderConsumer] LOGIC[비즈니스 로직] end API --&gt; CTRL CTRL --&gt; PROD PROD --&gt;|이벤트 발행| TOPIC TOPIC --&gt;|이벤트 수신| CONS CONS --&gt; LOGIC 이벤트 흐름 sequenceDiagram participant C as 클라이언트 participant A as API participant P as Producer participant K as Kafka participant O as Consumer C-&gt;&gt;A: POST /api/orders A-&gt;&gt;P: OrderEvent.created() P-&gt;&gt;K: publish(orderId, event) A--&gt;&gt;C: {&#34;orderId&#34;: &#34;abc123&#34;} K-&gt;&gt;O: 이벤트 전달 O-&gt;&gt;O: handleOrderCreated() C-&gt;&gt;A: POST /orders/abc123/pay A-&gt;&gt;P: OrderEvent.paid() P-&gt;&gt;K: publish(orderId, event) K-&gt;&gt;O: 이벤트 전달 O-&gt;&gt;O: handleOrderPaid() 이벤트 타입 OrderEvent public record OrderEvent( String orderId, String customerId, OrderStatus status, String description, LocalDateTime timestamp ) {} OrderStatus 상태 설명 다음 상태 CREATED 주문 생성됨 PAID, CANCELLED PAID 결제 완료 SHIPPED, CANCELLED SHIPPED 배송 시작 DELIVERED DELIVERED 배송 완료 - CANCELLED 주문 취소 - stateDiagram-v2 [*] --&gt; CREATED CREATED --&gt; PAID: 결제 CREATED --&gt; CANCELLED: 취소 PAID --&gt; SHIPPED: 배송 시작 PAID --&gt; CANCELLED: 취소 SHIPPED --&gt; DELIVERED: 배송 완료 DELIVERED --&gt; [*] CANCELLED --&gt; [*] Message Key 사용 왜 orderId를 Key로 사용하나요? kafkaTemplate.send(TOPIC, event.orderId(), event); // topic key value 순서 보장이 필요하기 때문입니다.
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 주문 시스템" href="https://YOUR_USERNAME.github.io/kafka-101/docs/examples/order-system/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Replication
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Replication 데이터 복제와 고가용성 메커니즘을 이해합니다.
+왜 Replication이 필요한가? 단일 Broker에 데이터를 저장하면 장애 시 데이터 유실이 발생합니다.
+flowchart TB subgraph Problem[&#34;복제 없는 경우&#34;] P1[Producer] --&gt; B1[Broker 1] B1 --&gt;|장애!| X[데이터 유실] end subgraph Solution[&#34;복제 있는 경우&#34;] P2[Producer] --&gt; B2[Broker 1\nLeader] B2 --&gt;|복제| B3[Broker 2\nFollower] B2 --&gt;|복제| B4[Broker 3\nFollower] B2 --&gt;|장애| B3 B3 --&gt;|승격| B3L[새 Leader] end Leader와 Follower 각 Partition은 하나의 Leader와 여러 Follower로 구성됩니다.
+flowchart TB subgraph Partition[&#34;Topic A - Partition 0&#34;] L[Broker 1\nLeader] F1[Broker 2\nFollower] F2[Broker 3\nFollower] end P[Producer] --&gt;|쓰기| L L --&gt;|복제| F1 L --&gt;|복제| F2 L --&gt;|읽기| C[Consumer] 역할 분담 역할 책임 Leader 모든 읽기/쓰기 처리, Follower에 데이터 복제 Follower Leader 데이터 복제, Leader 장애 시 승격 대기 중요: Producer와 Consumer는 Leader에만 연결됩니다.
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to Replication" href="https://YOUR_USERNAME.github.io/kafka-101/docs/concepts/replication/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">심화 개념
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>심화 개념 acks, Message Key, Retention 정책을 이해합니다.
+acks (Acknowledgment) Producer가 메시지 전송 성공을 어떻게 확인할지 결정합니다.
+acks 옵션 flowchart TB subgraph acks0[&#34;acks=0&#34;] P0[Producer] --&gt;|전송| L0[Leader] P0 --&gt;|즉시 완료| OK0[Success] end subgraph acks1[&#34;acks=1&#34;] P1[Producer] --&gt;|전송| L1[Leader] L1 --&gt;|저장 완료| ACK1[ACK] ACK1 --&gt; OK1[Success] end subgraph acksAll[&#34;acks=all&#34;] P2[Producer] --&gt;|전송| L2[Leader] L2 --&gt;|복제| F1[Follower 1] L2 --&gt;|복제| F2[Follower 2] F1 --&gt;|동기화| ACK2[ACK] F2 --&gt;|동기화| ACK2 ACK2 --&gt; OK2[Success] end 옵션별 비교 acks 동작 속도 안전성 사용 사례 0 응답 대기 안함 최고 최저 로그, 메트릭 1 Leader 저장 확인 중간 중간 일반 이벤트 all ISR 전체 복제 확인 최저 최고 결제, 주문 Spring Kafka 설정 spring: kafka: producer: acks: all # 권장 retries: 3 Trade-off 다이어그램 flowchart LR subgraph Tradeoff[&#34;acks Trade-off&#34;] SPEED[속도] SAFE[안전성] end SPEED &lt;--&gt;|반비례| SAFE A0[&#34;acks=0\n빠름, 위험&#34;] --&gt; SPEED A1[&#34;acks=1\n균형&#34;] --&gt; SPEED A1 --&gt; SAFE AALL[&#34;acks=all\n느림, 안전&#34;] --&gt; SAFE Message Key 메시지를 특정 Partition으로 라우팅하는 데 사용됩니다.
+...</p>
+  </div>
+  <footer class="entry-footer"></footer>
+  <a class="entry-link" aria-label="post link to 심화 개념" href="https://YOUR_USERNAME.github.io/kafka-101/docs/concepts/advanced-concepts/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://YOUR_USERNAME.github.io/kafka-101/">Kafka Guidance 101</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -43,8 +43,7 @@ flowchart TB
 
         subgraph Examples[예제 프로젝트]
             QS[quick-start/]
-            BASIC[basic-producer-consumer/]
-            ORDER[order-system/]
+                        ORDER[order-system/]
         end
 
         subgraph Infra[인프라]
@@ -242,10 +241,6 @@ kafka-guidance-101/
 │   │   │       │       └── MessageConsumer.java
 │   │   │       └── resources/
 │   │   │           └── application.yml
-│   │   └── README.md
-│   ├── basic-producer-consumer/
-│   │   ├── build.gradle.kts
-│   │   ├── src/
 │   │   └── README.md
 │   └── order-system/
 │       ├── build.gradle.kts
