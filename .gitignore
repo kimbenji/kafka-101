@@ -1,0 +1,33 @@
+# Hugo
+public/
+resources/
+.hugo_build.lock
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Spring
+*.log
+application-local.yml
+
+# Temp
+*.tmp
+*.bak
+*.swp
