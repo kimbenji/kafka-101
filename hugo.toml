@@ -1,6 +1,6 @@
 # Kafka Guidance 101 - Hugo Configuration
 
-baseURL = 'https://YOUR_USERNAME.github.io/kafka-101/'
+baseURL = 'https://kimbenji.github.io/kafka-101/'
 languageCode = 'ko-kr'
 defaultContentLanguage = 'ko'
 title = 'Kafka Guidance 101'
@@ -23,7 +23,7 @@ enableGitInfo = true
 
   [params.editURL]
     enable = true
-    base = 'https://github.com/YOUR_USERNAME/kafka-101/edit/main/content'
+    base = 'https://github.com/kimbenji/kafka-101/edit/main/content'
 
 # Markup settings
 [markup]
@@ -42,7 +42,7 @@ enableGitInfo = true
 
   [[menu.main]]
     name = "GitHub"
-    url = "https://github.com/YOUR_USERNAME/kafka-101"
+    url = "https://github.com/kimbenji/kafka-101"
     weight = 2
 
 # Output formats

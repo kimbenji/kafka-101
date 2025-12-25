@@ -4,9 +4,9 @@ Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드입�
 
 ## 문서 보기
 
-https://YOUR_USERNAME.github.io/kafka-101/
+https://kimbenji.github.io/kafka-101/
 
-> **Note:** 배포 전 위 URL의 `YOUR_USERNAME`을 실제 GitHub 사용자명으로 변경하세요.
+> **Note:** 배포 전 위 URL의 `kimbenji`을 실제 GitHub 사용자명으로 변경하세요.
 
 ## 로컬 개발 환경
 
