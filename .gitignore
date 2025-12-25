@@ -1,6 +1,6 @@
 # Hugo
 public/
-resources/
+/resources/
 .hugo_build.lock
 
 # IDE
@@ -21,7 +21,7 @@ Thumbs.db
 # Gradle
 .gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
 
 # Spring
 *.log
