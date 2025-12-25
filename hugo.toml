@@ -1,0 +1,52 @@
+# Kafka Guidance 101 - Hugo Configuration
+
+baseURL = 'https://example.org/'
+languageCode = 'ko-kr'
+defaultContentLanguage = 'ko'
+title = 'Kafka Guidance 101'
+theme = 'PaperMod'
+
+enableRobotsTXT = true
+enableGitInfo = true
+
+# Hextra Theme Settings
+[params]
+  description = 'Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드'
+
+  [params.navbar]
+    displayTitle = true
+    displayLogo = false
+
+  [params.footer]
+    displayCopyright = true
+    displayPoweredBy = false
+
+  [params.editURL]
+    enable = true
+    base = 'https://github.com/username/kafka-guidance-101/edit/main/content'
+
+# Markup settings
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+
+# Menu configuration
+[menu]
+  [[menu.main]]
+    name = "문서"
+    pageRef = "/docs"
+    weight = 1
+
+  [[menu.main]]
+    name = "GitHub"
+    url = "https://github.com/username/kafka-guidance-101"
+    weight = 2
+
+# Output formats
+[outputs]
+  home = ['HTML']
+  page = ['HTML']
+  section = ['HTML']
