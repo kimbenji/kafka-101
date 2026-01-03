@@ -7,6 +7,12 @@ weight: 2
 
 Spring Kafka를 사용한 기본적인 메시지 송수신 구현을 설명합니다.
 
+> **사전 학습**: [Quick Start](../../quick-start/)를 먼저 완료하면 이 문서를 더 쉽게 이해할 수 있습니다.
+
+이 문서에서는 Quick Start의 단순한 예제를 확장하여 실무에서 사용하는 패턴들을 학습합니다.
+
+---
+
 ## Producer 구현
 
 ### KafkaTemplate 주입
@@ -26,6 +32,8 @@ public class MessageProducer {
 > Spring Boot가 자동으로 `KafkaTemplate`을 생성하여 주입합니다.
 
 ### 동기 전송
+
+Quick Start에서는 `send()`의 결과를 확인하지 않았습니다. 실무에서는 전송 결과를 확인해야 할 때가 많습니다.
 
 ```java
 public void sendSync(String topic, String message) {
@@ -108,15 +116,19 @@ public void sendToPartition(String topic, int partition, String key, String mess
 }
 ```
 
+---
+
 ## Consumer 구현
 
 ### 기본 @KafkaListener
+
+Quick Start에서 사용한 가장 기본적인 형태입니다.
 
 ```java
 @Component
 public class MessageConsumer {
 
-    @KafkaListener(topics = "my-topic", groupId = "my-group")
+    @KafkaListener(topics = "quickstart-topic", groupId = "quickstart-group")
     public void consume(String message) {
         log.info("메시지 수신: {}", message);
     }
@@ -125,8 +137,10 @@ public class MessageConsumer {
 
 ### ConsumerRecord로 수신
 
+메시지 외에 메타데이터도 필요할 때 사용합니다.
+
 ```java
-@KafkaListener(topics = "my-topic")
+@KafkaListener(topics = "quickstart-topic")
 public void consume(ConsumerRecord<String, String> record) {
     log.info("Topic: {}", record.topic());
     log.info("Partition: {}", record.partition());
@@ -159,7 +173,7 @@ public void consumePattern(String message) {
 ### 배치 수신
 
 ```java
-@KafkaListener(topics = "my-topic", batch = "true")
+@KafkaListener(topics = "quickstart-topic", batch = "true")
 public void consumeBatch(List<String> messages) {
     log.info("배치 수신: {}건", messages.size());
     for (String message : messages) {
@@ -168,7 +182,11 @@ public void consumeBatch(List<String> messages) {
 }
 ```
 
+---
+
 ## 수동 Offset 커밋
+
+Quick Start에서는 자동 커밋을 사용했습니다. 메시지 처리 실패 시 재처리가 필요하다면 수동 커밋을 사용합니다.
 
 ### 설정
 
@@ -184,7 +202,7 @@ spring:
 ### 구현
 
 ```java
-@KafkaListener(topics = "my-topic")
+@KafkaListener(topics = "quickstart-topic")
 public void consume(String message, Acknowledgment ack) {
     try {
         // 비즈니스 로직 처리
@@ -207,6 +225,8 @@ flowchart TB
     C --> E[다음 메시지]
     D --> F[재시작 시 재처리]
 ```
+
+---
 
 ## 에러 처리
 
@@ -232,10 +252,10 @@ public class KafkaConfig {
     attempts = "3",
     backoff = @Backoff(delay = 1000, multiplier = 2)
 )
-@KafkaListener(topics = "my-topic")
+@KafkaListener(topics = "quickstart-topic")
 public void consume(String message) {
     // 실패 시 자동 재시도
-    // 3회 실패 시 my-topic-dlt로 이동
+    // 3회 실패 시 quickstart-topic-dlt로 이동
     processMessage(message);
 }
 ```
@@ -244,15 +264,21 @@ public void consume(String message) {
 
 ```mermaid
 flowchart LR
-    A[my-topic] -->|처리 실패| B[my-topic-retry-0]
-    B -->|재시도 1 실패| C[my-topic-retry-1]
-    C -->|재시도 2 실패| D[my-topic-dlt]
+    A[quickstart-topic] -->|처리 실패| B[quickstart-topic-retry-0]
+    B -->|재시도 1 실패| C[quickstart-topic-retry-1]
+    C -->|재시도 2 실패| D[quickstart-topic-dlt]
     D -->|수동 처리| E[관리자]
 ```
 
+---
+
 ## 전체 예제 코드
 
-### Producer
+Quick Start 예제를 확장한 버전입니다.
+
+### Producer (REST API 확장)
+
+Quick Start에서는 단순 문자열만 전송했습니다. 실무에서는 key와 함께 JSON 객체를 전송하는 경우가 많습니다.
 
 ```java
 @RestController
@@ -265,8 +291,16 @@ public class MessageController {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @PostMapping
-    public ResponseEntity<String> send(@RequestBody MessageRequest request) {
+    // Quick Start와 동일한 단순 전송
+    @PostMapping("/simple")
+    public ResponseEntity<String> sendSimple(@RequestBody String message) {
+        kafkaTemplate.send("quickstart-topic", message);
+        return ResponseEntity.ok("메시지 전송 완료: " + message);
+    }
+
+    // 확장: Key와 Topic을 지정하여 전송
+    @PostMapping("/advanced")
+    public ResponseEntity<String> sendAdvanced(@RequestBody MessageRequest request) {
         kafkaTemplate.send(request.topic(), request.key(), request.message());
         return ResponseEntity.ok("메시지 전송 완료");
     }
@@ -275,7 +309,21 @@ public class MessageController {
 record MessageRequest(String topic, String key, String message) {}
 ```
 
-### Consumer
+**API 사용 예시:**
+
+```bash
+# Quick Start와 동일한 방식
+curl -X POST http://localhost:8080/api/messages/simple \
+  -H "Content-Type: text/plain" \
+  -d "Hello Kafka!"
+
+# 확장된 방식 (Key와 Topic 지정)
+curl -X POST http://localhost:8080/api/messages/advanced \
+  -H "Content-Type: application/json" \
+  -d '{"topic": "quickstart-topic", "key": "user-123", "message": "Hello!"}'
+```
+
+### Consumer (수동 커밋)
 
 ```java
 @Component
@@ -283,8 +331,8 @@ record MessageRequest(String topic, String key, String message) {}
 public class MessageConsumer {
 
     @KafkaListener(
-        topics = "${app.kafka.topic}",
-        groupId = "${spring.kafka.consumer.group-id}"
+        topics = "quickstart-topic",
+        groupId = "quickstart-group"
     )
     public void consume(
             ConsumerRecord<String, String> record,
@@ -311,13 +359,15 @@ public class MessageConsumer {
 }
 ```
 
+---
+
 ## 테스트
 
 ### 임베디드 Kafka
 
 ```java
 @SpringBootTest
-@EmbeddedKafka(partitions = 1, topics = {"test-topic"})
+@EmbeddedKafka(partitions = 1, topics = {"quickstart-topic"})
 class KafkaIntegrationTest {
 
     @Autowired
@@ -325,12 +375,14 @@ class KafkaIntegrationTest {
 
     @Test
     void testSendAndReceive() throws Exception {
-        kafkaTemplate.send("test-topic", "test-message").get();
+        kafkaTemplate.send("quickstart-topic", "test-message").get();
 
         // Consumer 검증 로직
     }
 }
 ```
+
+---
 
 ## 정리
 
@@ -340,6 +392,17 @@ class KafkaIntegrationTest {
 | **Consumer** | `@KafkaListener` | 메시지 수신 |
 | **수동 커밋** | `Acknowledgment` | 처리 완료 확인 |
 | **에러 처리** | `@RetryableTopic` | 재시도 및 DLT |
+
+## Quick Start vs 기본 예제
+
+| 항목 | Quick Start | 기본 예제 |
+|------|-------------|-----------|
+| 전송 방식 | Fire-and-forget | 동기/비동기 선택 |
+| Offset 커밋 | 자동 | 수동 가능 |
+| 에러 처리 | 없음 | 재시도 + DLT |
+| Key 사용 | 없음 | 지원 |
+
+---
 
 ## 다음 단계
 
