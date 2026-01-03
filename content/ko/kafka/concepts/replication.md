@@ -1,6 +1,6 @@
 ---
 title: Replication
-slug: replication
+weight: 4
 ---
 
 # Replication

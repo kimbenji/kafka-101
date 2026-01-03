@@ -1,6 +1,6 @@
 ---
 title: 핵심 구성요소
-slug: core-components
+weight: 1
 ---
 
 # Kafka 핵심 구성요소

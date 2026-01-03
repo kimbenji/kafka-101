@@ -1,7 +1,6 @@
 ---
-title: "Advanced Beginner"
-description: "실무에 바로 적용하는 기술 가이드"
-featured_image: ""
+title: Advanced Beginner
+description: 실무에 바로 적용하는 기술 가이드
 ---
 
 실무에 바로 적용하는 기술 가이드입니다.
@@ -14,6 +13,4 @@ featured_image: ""
 
 ## 가이드 목록
 
-- [Apache Kafka](/kafka/) - Java/Spring Boot 환경에서 Kafka 활용하기
-
-[시작하기 →](/kafka/)
+{{% children %}}

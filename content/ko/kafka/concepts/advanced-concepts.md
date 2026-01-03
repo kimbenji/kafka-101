@@ -1,6 +1,6 @@
 ---
 title: 심화 개념
-slug: advanced-concepts
+weight: 5
 ---
 
 # 심화 개념

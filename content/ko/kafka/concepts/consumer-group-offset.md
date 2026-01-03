@@ -1,6 +1,6 @@
 ---
 title: Consumer Group & Offset
-slug: consumer-group-offset
+weight: 3
 ---
 
 # Consumer Group & Offset

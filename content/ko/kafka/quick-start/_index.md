@@ -1,6 +1,6 @@
 ---
 title: Quick Start
-slug: quick-start
+weight: 1
 ---
 
 # Quick Start

@@ -1,6 +1,6 @@
 ---
 title: 환경 구성
-slug: setup
+weight: 1
 ---
 
 # 환경 구성

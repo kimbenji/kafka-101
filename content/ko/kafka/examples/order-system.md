@@ -1,6 +1,6 @@
 ---
 title: 주문 시스템
-slug: order-system
+weight: 3
 ---
 
 # 주문 시스템 예제

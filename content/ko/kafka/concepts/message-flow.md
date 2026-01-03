@@ -1,6 +1,6 @@
 ---
 title: 메시지 흐름
-slug: message-flow
+weight: 2
 ---
 
 # 메시지 흐름

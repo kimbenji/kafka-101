@@ -1,6 +1,6 @@
 ---
 title: 기본 예제
-slug: basic
+weight: 2
 ---
 
 # 기본 Producer/Consumer 예제

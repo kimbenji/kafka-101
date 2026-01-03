@@ -1,6 +1,6 @@
 ---
 title: 용어 사전
-slug: glossary
+weight: 1
 ---
 
 # Kafka 용어 사전

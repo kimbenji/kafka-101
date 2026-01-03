@@ -1,6 +1,6 @@
 ---
 title: 참고 자료
-slug: references
+weight: 2
 ---
 
 # 참고 자료
