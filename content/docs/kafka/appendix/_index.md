@@ -9,8 +9,8 @@ weight: 4
 
 ## 목차
 
-1. [용어 사전](/docs/appendix/glossary/) - Kafka 관련 용어 A-Z
-2. [참고 자료](/docs/appendix/references/) - 공식 문서, 서적, 커뮤니티
+1. [용어 사전](/docs/kafka/appendix/glossary/) - Kafka 관련 용어 A-Z
+2. [참고 자료](/docs/kafka/appendix/references/) - 공식 문서, 서적, 커뮤니티
 
 ## 빠른 참조
 

@@ -1,17 +1,17 @@
-# Kafka Guidance 101 - Hugo Configuration
+# Advanced Beginner - Hugo Configuration
 
-baseURL = 'https://kimbenji.github.io/kafka-101/'
+baseURL = 'https://kimbenji.github.io/advanced-beginner/'
 languageCode = 'ko-kr'
 defaultContentLanguage = 'ko'
-title = 'Kafka Guidance 101'
+title = 'Advanced Beginner'
 theme = 'PaperMod'
 
 enableRobotsTXT = true
 enableGitInfo = true
 
-# Hextra Theme Settings
+# Theme Settings
 [params]
-  description = 'Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드'
+  description = '실무에 바로 적용하는 기술 가이드'
 
   [params.navbar]
     displayTitle = true
@@ -23,7 +23,7 @@ enableGitInfo = true
 
   [params.editURL]
     enable = true
-    base = 'https://github.com/kimbenji/kafka-101/edit/main/content'
+    base = 'https://github.com/kimbenji/advanced-beginner/edit/main/content'
 
 # Markup settings
 [markup]
@@ -42,7 +42,7 @@ enableGitInfo = true
 
   [[menu.main]]
     name = "GitHub"
-    url = "https://github.com/kimbenji/kafka-101"
+    url = "https://github.com/kimbenji/advanced-beginner"
     weight = 2
 
 # Output formats

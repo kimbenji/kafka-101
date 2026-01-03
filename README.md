@@ -1,12 +1,14 @@
-# Kafka Guidance 101
+# Advanced Beginner
 
-Apache Kafka를 Java/Spring Boot 환경에서 활용하는 종합 가이드입니다.
+실무에 바로 적용하는 기술 가이드입니다.
 
 ## 문서 보기
 
-https://kimbenji.github.io/kafka-101/
+https://kimbenji.github.io/advanced-beginner/
 
-> **Note:** 배포 전 위 URL의 `kimbenji`을 실제 GitHub 사용자명으로 변경하세요.
+## 가이드 목록
+
+- **Apache Kafka** - Java/Spring Boot 환경에서 Kafka 활용하기
 
 ## 로컬 개발 환경
 
@@ -49,17 +51,18 @@ curl -X POST "http://localhost:8080/send?message=Hello"
 ## 프로젝트 구조
 
 ```
-kafka-guidance-101/
-├── content/docs/       # Hugo 문서 소스 (Markdown)
-│   ├── quick-start/    # 5분 Quick Start
-│   ├── concepts/       # Kafka 핵심 개념
-│   ├── examples/       # 실습 예제 가이드
-│   └── appendix/       # 용어 사전, 참고 자료
-├── examples/           # Spring Boot 예제 프로젝트
-│   ├── quick-start/    # 최소 설정 예제
-│   └── order-system/   # 주문 시스템 예제
-├── docker/             # Kafka Docker Compose
-└── .github/workflows/  # GitHub Actions 배포
+advanced-beginner/
+├── content/docs/           # Hugo 문서 소스 (Markdown)
+│   └── kafka/              # Kafka 가이드
+│       ├── quick-start/    # 5분 Quick Start
+│       ├── concepts/       # Kafka 핵심 개념
+│       ├── examples/       # 실습 예제 가이드
+│       └── appendix/       # 용어 사전, 참고 자료
+├── examples/               # Spring Boot 예제 프로젝트
+│   ├── quick-start/        # 최소 설정 예제
+│   └── order-system/       # 주문 시스템 예제
+├── docker/                 # Kafka Docker Compose
+└── .github/workflows/      # GitHub Actions 배포
 ```
 
 ## 기술 스택

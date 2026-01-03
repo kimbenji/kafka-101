@@ -17,9 +17,9 @@ flowchart LR
 
 ## 목차
 
-1. [환경 구성](/docs/examples/setup/) - Docker Compose, Spring Boot 설정
-2. [기본 예제](/docs/examples/basic/) - Producer/Consumer 구현 패턴
-3. [주문 시스템](/docs/examples/order-system/) - 실전 이벤트 기반 시스템
+1. [환경 구성](/docs/kafka/examples/setup/) - Docker Compose, Spring Boot 설정
+2. [기본 예제](/docs/kafka/examples/basic/) - Producer/Consumer 구현 패턴
+3. [주문 시스템](/docs/kafka/examples/order-system/) - 실전 이벤트 기반 시스템
 
 ## 예제 프로젝트
 
