@@ -267,4 +267,4 @@ flowchart TB
 
 ## 다음 단계
 
-- [심화 개념](/docs/concepts/advanced-concepts/) - acks, Message Key, Retention
+- [심화 개념](/kafka/concepts/advanced-concepts/) - acks, Message Key, Retention

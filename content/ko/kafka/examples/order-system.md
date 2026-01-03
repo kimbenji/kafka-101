@@ -302,4 +302,4 @@ public void consume(OrderEvent event) {
 
 ## 다음 단계
 
-- [부록](/docs/appendix/) - 용어 사전 및 참고 자료
+- [부록](/kafka/appendix/) - 용어 사전 및 참고 자료

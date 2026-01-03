@@ -151,5 +151,5 @@ Could not resolve dependencies
 
 ## 다음 단계
 
-- [개념 이해](/docs/kafka/concepts/) - Kafka의 핵심 구성요소 학습
-- [실습 예제](/docs/kafka/examples/) - 더 복잡한 예제 실습
+- [개념 이해](/kafka/concepts/) - Kafka의 핵심 구성요소 학습
+- [실습 예제](/kafka/examples/) - 더 복잡한 예제 실습

@@ -297,4 +297,4 @@ flowchart TB
 
 ## 다음 단계
 
-- [Replication](/docs/concepts/replication/) - 데이터 복제와 고가용성
+- [Replication](/kafka/concepts/replication/) - 데이터 복제와 고가용성

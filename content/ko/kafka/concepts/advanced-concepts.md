@@ -296,4 +296,4 @@ flowchart TB
 
 ## 다음 단계
 
-- [실습 예제](/docs/examples/) - 배운 개념을 직접 적용해보기
+- [실습 예제](/kafka/examples/) - 배운 개념을 직접 적용해보기

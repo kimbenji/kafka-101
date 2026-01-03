@@ -196,4 +196,4 @@ flowchart TB
 
 ## 다음 단계
 
-- [메시지 흐름](/docs/concepts/message-flow/) - 메시지가 어떻게 전달되는지 자세히 알아보기
+- [메시지 흐름](/kafka/concepts/message-flow/) - 메시지가 어떻게 전달되는지 자세히 알아보기
