@@ -14,6 +14,6 @@ featured_image: ""
 
 ## 가이드 목록
 
-- [Apache Kafka](/docs/kafka/) - Java/Spring Boot 환경에서 Kafka 활용하기
+- [Apache Kafka](/kafka/) - Java/Spring Boot 환경에서 Kafka 활용하기
 
-[문서 보기 →](/docs/)
+[시작하기 →](/kafka/)

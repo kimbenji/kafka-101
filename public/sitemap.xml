@@ -2,42 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/quick-start/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/appendix/glossary/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/core-components/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/setup/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/basic/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/message-flow/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/appendix/references/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/consumer-group-offset/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/order-system/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/replication/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/appendix/</loc>
-  </url><url>
-    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/advanced-concepts/</loc>
-  </url><url>
     <loc>http://localhost:1313/advanced-beginner/</loc>
+    <lastmod>2026-01-03T17:11:51+09:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/advanced-beginner/categories/</loc>
   </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/consumer-group-offset/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/overview/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/quick-start/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/replication/</loc>
+  </url><url>
     <loc>http://localhost:1313/advanced-beginner/tags/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/basic/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/message-flow/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/advanced-concepts/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/glossary/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/order-system/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/references/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/core-components/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/kafka/setup/</loc>
   </url>
 </urlset>

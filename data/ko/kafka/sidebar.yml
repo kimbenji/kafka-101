@@ -1,0 +1,26 @@
+- title: Kafka Guidance
+  pages:
+    - title: Overview
+
+- title: Quick Start
+  pages:
+    - title: Quick Start
+
+- title: 개념 이해
+  pages:
+    - title: 핵심 구성요소
+    - title: 메시지 흐름
+    - title: Consumer Group & Offset
+    - title: Replication
+    - title: 심화 개념
+
+- title: 실습 예제
+  pages:
+    - title: 환경 구성
+    - title: 기본 예제
+    - title: 주문 시스템
+
+- title: 부록
+  pages:
+    - title: 용어 사전
+    - title: 참고 자료

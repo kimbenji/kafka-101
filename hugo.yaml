@@ -50,7 +50,7 @@ params:
     heading: Advanced
     headingSegment2: Beginner
     description: 실무에 바로 적용하는 기술 가이드
-    getStartedPath: docs/kafka/
+    getStartedPath: kafka/
 
   pagination:
     size: 6
@@ -59,8 +59,8 @@ params:
 
 menus:
   main:
-    - name: 문서
-      pageRef: /docs
+    - name: Kafka
+      pageRef: /kafka
       weight: 1
     - name: GitHub
       url: https://github.com/kimbenji/advanced-beginner
