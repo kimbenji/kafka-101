@@ -1,3 +1,3 @@
-[submodule "themes/PaperMod"]
-	path = themes/PaperMod
-	url = https://github.com/adityatelange/hugo-PaperMod
+[submodule "themes/E25DX"]
+	path = themes/E25DX
+	url = https://github.com/dumindu/E25DX

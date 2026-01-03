@@ -1,3 +1,26 @@
+User-agent: Googlebot
+User-agent: YandexBot
+User-agent: baiduspider
+User-agent: Applebot
+Allow: /
+
 User-agent: *
-Disallow:
-Sitemap: https://kimbenji.github.io/advanced-beginner/sitemap.xml
+Disallow: /advanced-beginner/docs/kafka/
+Disallow: /advanced-beginner/docs/kafka/quick-start/
+Disallow: /advanced-beginner/docs/
+Disallow: /advanced-beginner/docs/kafka/appendix/glossary/
+Disallow: /advanced-beginner/docs/kafka/concepts/core-components/
+Disallow: /advanced-beginner/docs/kafka/examples/setup/
+Disallow: /advanced-beginner/docs/kafka/concepts/
+Disallow: /advanced-beginner/docs/kafka/examples/basic/
+Disallow: /advanced-beginner/docs/kafka/concepts/message-flow/
+Disallow: /advanced-beginner/docs/kafka/appendix/references/
+Disallow: /advanced-beginner/docs/kafka/concepts/consumer-group-offset/
+Disallow: /advanced-beginner/docs/kafka/examples/
+Disallow: /advanced-beginner/docs/kafka/examples/order-system/
+Disallow: /advanced-beginner/docs/kafka/concepts/replication/
+Disallow: /advanced-beginner/docs/kafka/appendix/
+Disallow: /advanced-beginner/docs/kafka/concepts/advanced-concepts/
+Disallow: /advanced-beginner/
+Disallow: /advanced-beginner/categories/
+Disallow: /advanced-beginner/tags/

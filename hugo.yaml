@@ -1,0 +1,67 @@
+theme: E25DX
+
+baseURL: https://kimbenji.github.io/advanced-beginner/
+
+enableGitInfo: true
+enableRobotsTXT: true
+
+defaultContentLanguage: ko
+
+languages:
+  ko:
+    weight: 1
+    languageName: 한국어
+    languageCode: ko-KR
+    contentDir: content/ko
+    title: Advanced Beginner
+    params:
+      description: 실무에 바로 적용하는 기술 가이드
+
+services:
+  googleAnalytics:
+    ID: ~
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+        title: true
+
+params:
+  project:
+    startYear: 2024
+    presentYear: 2025
+    github:
+      repo: kimbenji/advanced-beginner
+    themeColor:
+      light: '#ffffff'
+      dark: '#101010'
+
+  author:
+    name: kimbenji
+    url: https://github.com/kimbenji
+
+  home:
+    heading: Advanced
+    headingSegment2: Beginner
+    description: 실무에 바로 적용하는 기술 가이드
+    getStartedPath: docs/kafka/
+
+  pagination:
+    size: 6
+
+  enableOGXSEO: false
+
+menus:
+  main:
+    - name: 문서
+      pageRef: /docs
+      weight: 1
+    - name: GitHub
+      url: https://github.com/kimbenji/advanced-beginner
+      weight: 2

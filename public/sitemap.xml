@@ -1,1 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/quick-start/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/</loc><lastmod>2025-12-25T16:43:36+09:00</lastmod></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/appendix/glossary/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/concepts/core-components/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/examples/setup/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/concepts/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/examples/basic/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/concepts/message-flow/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/appendix/references/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/concepts/consumer-group-offset/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/examples/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/examples/order-system/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/concepts/replication/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/appendix/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/docs/kafka/concepts/advanced-concepts/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/</loc><lastmod>2025-12-25T16:39:08+09:00</lastmod></url><url><loc>https://kimbenji.github.io/advanced-beginner/categories/</loc></url><url><loc>https://kimbenji.github.io/advanced-beginner/tags/</loc></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/quick-start/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/appendix/glossary/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/core-components/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/setup/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/basic/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/message-flow/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/appendix/references/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/consumer-group-offset/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/examples/order-system/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/replication/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/appendix/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/docs/kafka/concepts/advanced-concepts/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/categories/</loc>
+  </url><url>
+    <loc>http://localhost:1313/advanced-beginner/tags/</loc>
+  </url>
+</urlset>
