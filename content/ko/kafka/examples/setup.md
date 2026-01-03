@@ -325,4 +325,4 @@ spring:
 
 ## 다음 단계
 
-- [기본 예제](/kafka/examples/basic/) - Producer/Consumer 구현
+- [기본 예제](../basic/) - Producer/Consumer 구현

@@ -221,4 +221,4 @@ flowchart LR
 
 ## 다음 단계
 
-- [Consumer Group & Offset](/kafka/concepts/consumer-group-offset/) - 병렬 처리와 상태 관리
+- [Consumer Group & Offset](../consumer-group-offset/) - 병렬 처리와 상태 관리

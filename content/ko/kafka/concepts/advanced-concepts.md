@@ -44,6 +44,40 @@ flowchart TB
 | **1** | Leader 저장 확인 | 중간 | 중간 | 일반 이벤트 |
 | **all** | ISR 전체 복제 확인 | 최저 | 최고 | 결제, 주문 |
 
+### ⚠️ 중요: acks=all의 함정
+
+> **`acks=all`만으로는 데이터 안전성이 보장되지 않습니다!**
+
+`acks=all`은 "ISR에 있는 모든 복제본"에 복제를 확인합니다. 하지만 ISR에 Leader만 남아있다면?
+
+```mermaid
+flowchart TB
+    subgraph Problem["acks=all이지만 ISR=1인 경우"]
+        P[Producer] -->|acks=all| L[Leader만 ISR]
+        L -->|ACK| P
+        F1[Follower 1]
+        F2[Follower 2]
+        L -.->|동기화 지연| F1
+        L -.->|동기화 지연| F2
+        NOTE[Leader만 있어도\nacks=all 성공!]
+    end
+```
+
+**해결책: `min.insync.replicas`와 함께 사용**
+
+```yaml
+# Topic 설정 (권장)
+min.insync.replicas: 2  # 최소 2개 복제본 필요
+
+# Producer 설정
+acks: all
+```
+
+| 설정 조합 | ISR=3 | ISR=2 | ISR=1 |
+|----------|-------|-------|-------|
+| `acks=all` only | ✅ 성공 | ✅ 성공 | ✅ 성공 (위험!) |
+| `acks=all` + `min.insync.replicas=2` | ✅ 성공 | ✅ 성공 | ❌ 실패 (안전) |
+
 ### Spring Kafka 설정
 
 ```yaml
@@ -228,6 +262,71 @@ cleanup.policy: compact
 min.cleanable.dirty.ratio: 0.5
 ```
 
+## Idempotent Producer (멱등성 프로듀서)
+
+네트워크 오류로 재전송 시 **중복 메시지 방지**를 보장합니다.
+
+### 문제 상황
+
+```mermaid
+sequenceDiagram
+    participant P as Producer
+    participant B as Broker
+
+    P->>B: 메시지 전송 (seq=1)
+    B->>B: 저장 완료
+    B--xP: ACK 유실 (네트워크 오류)
+
+    Note over P: ACK 못 받음 → 재전송
+    P->>B: 같은 메시지 재전송 (seq=1)
+    B->>B: 중복 저장! ❌
+```
+
+### 해결: Idempotent Producer
+
+```mermaid
+sequenceDiagram
+    participant P as Producer (PID=100)
+    participant B as Broker
+
+    P->>B: 메시지 (PID=100, seq=0)
+    B->>B: 저장, seq=0 기록
+    B--xP: ACK 유실
+
+    P->>B: 재전송 (PID=100, seq=0)
+    B->>B: seq=0 이미 처리됨 → 무시
+    B->>P: ACK (중복 방지됨) ✅
+```
+
+### 동작 원리
+
+| 개념 | 설명 |
+|------|------|
+| **Producer ID (PID)** | Producer 식별자, 브로커가 할당 |
+| **Sequence Number** | 각 Partition별 메시지 순번 |
+| **중복 감지** | 동일 PID + seq는 무시 |
+
+### 설정
+
+```yaml
+spring:
+  kafka:
+    producer:
+      properties:
+        enable.idempotence: true  # 기본값: true (Kafka 3.0+)
+```
+
+### 주의사항
+
+```java
+// Idempotent Producer 활성화 시 자동 설정됨
+acks = all                              // 필수
+retries = Integer.MAX_VALUE             // 무한 재시도
+max.in.flight.requests.per.connection = 5  // 최대 5
+```
+
+> **참고:** Kafka 3.0부터 `enable.idempotence=true`가 기본값입니다.
+
 ## 설정 예시 종합
 
 ### 고신뢰성 프로덕션 환경
@@ -240,7 +339,7 @@ spring:
       acks: all
       retries: 3
       properties:
-        enable.idempotence: true
+        enable.idempotence: true  # Kafka 3.0+ 기본값
         max.in.flight.requests.per.connection: 5
 
 # Topic 생성 시
@@ -296,4 +395,5 @@ flowchart TB
 
 ## 다음 단계
 
-- [실습 예제](/kafka/examples/) - 배운 개념을 직접 적용해보기
+- [트랜잭션과 Exactly-Once](../transactions/) - 메시지 전달 보장과 트랜잭션 API
+- [실습 예제](../../examples/) - 배운 개념을 직접 적용해보기

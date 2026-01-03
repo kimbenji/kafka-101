@@ -343,4 +343,4 @@ class KafkaIntegrationTest {
 
 ## 다음 단계
 
-- [주문 시스템](/kafka/examples/order-system/) - 실전 예제
+- [주문 시스템](../order-system/) - 실전 예제
