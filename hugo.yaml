@@ -40,6 +40,7 @@ params:
     name: kimbenji
     email: d8lzz1gpw@mozmail.com
 
+  hideAuthorEmail: true
   showVisitedLinks: true
   disableLandingPageButton: false
 
