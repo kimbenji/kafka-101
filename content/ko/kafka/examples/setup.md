@@ -5,11 +5,18 @@ weight: 1
 
 # 환경 구성
 
-Spring Boot에서 Kafka를 사용하기 위한 환경 설정을 안내합니다.
+Spring Boot에서 Kafka를 사용하기 위한 환경 설정 레퍼런스입니다.
+
+> **Quick Start를 완료했다면?**
+> [Quick Start](../../quick-start/)에서 이미 기본 환경을 구성했습니다. 이 문서는 설정 상세 내용과 프로덕션 환경 구성을 위한 **참조 문서**입니다.
+
+---
 
 ## Docker로 Kafka 실행
 
 ### docker-compose.yml
+
+프로젝트 루트의 `docker/docker-compose.yml` 파일입니다.
 
 ```yaml
 version: '3.8'
@@ -41,6 +48,8 @@ volumes:
   kafka-data:
 ```
 
+> **KRaft 모드**: 이 설정은 Zookeeper 없이 Kafka 자체 메타데이터 관리를 사용합니다 (Kafka 3.3+).
+
 ### 실행 명령
 
 ```bash
@@ -59,6 +68,8 @@ docker-compose down
 # 데이터 포함 종료
 docker-compose down -v
 ```
+
+---
 
 ## Spring Boot 의존성
 
@@ -99,9 +110,13 @@ dependencies {
 </dependencies>
 ```
 
+---
+
 ## application.yml 설정
 
-### 기본 설정
+### Quick Start 기본 설정
+
+[Quick Start 예제](../../quick-start/)에서 사용하는 최소 설정입니다.
 
 ```yaml
 spring:
@@ -109,70 +124,72 @@ spring:
     name: kafka-example
 
   kafka:
-    # Kafka 브로커 주소
     bootstrap-servers: localhost:9092
 
-    # Producer 설정
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      acks: all
-      retries: 3
 
-    # Consumer 설정
     consumer:
-      group-id: my-group
+      group-id: quickstart-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      enable-auto-commit: true
 ```
 
-### 설정 항목 상세
+### 프로덕션 권장 설정
 
-#### Producer 설정
-
-| 설정 | 설명 | 권장값 |
-|------|------|--------|
-| `acks` | 전송 확인 수준 | `all` (프로덕션) |
-| `retries` | 재시도 횟수 | `3` |
-| `batch-size` | 배치 크기 (bytes) | `16384` |
-| `linger-ms` | 배치 대기 시간 | `0` |
-| `buffer-memory` | 버퍼 메모리 | `33554432` |
+실무 환경에서는 다음 설정을 추가로 고려하세요.
 
 ```yaml
 spring:
   kafka:
+    bootstrap-servers: localhost:9092
+
     producer:
-      acks: all
-      retries: 3
-      batch-size: 16384
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all                    # 모든 복제본 확인
+      retries: 3                   # 재시도 횟수
       properties:
-        linger.ms: 1
-        buffer.memory: 33554432
-        enable.idempotence: true
-```
+        linger.ms: 1               # 배치 대기 시간
+        enable.idempotence: true   # 중복 전송 방지
 
-#### Consumer 설정
-
-| 설정 | 설명 | 권장값 |
-|------|------|--------|
-| `group-id` | Consumer Group ID | 서비스명 |
-| `auto-offset-reset` | 초기 Offset | `earliest` |
-| `enable-auto-commit` | 자동 커밋 | `true` |
-| `max-poll-records` | 한번에 가져올 최대 레코드 | `500` |
-
-```yaml
-spring:
-  kafka:
     consumer:
-      group-id: order-service
+      group-id: quickstart-group
       auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       enable-auto-commit: true
       properties:
         max.poll.records: 500
         max.poll.interval.ms: 300000
 ```
+
+---
+
+## 설정 항목 상세
+
+### Producer 설정
+
+| 설정 | 설명 | 기본값 | 권장값 |
+|------|------|--------|--------|
+| `acks` | 전송 확인 수준 | `1` | `all` (프로덕션) |
+| `retries` | 재시도 횟수 | `2147483647` | `3` |
+| `batch-size` | 배치 크기 (bytes) | `16384` | `16384` |
+| `linger-ms` | 배치 대기 시간 | `0` | `1` |
+| `buffer-memory` | 버퍼 메모리 | `33554432` | `33554432` |
+
+### Consumer 설정
+
+| 설정 | 설명 | 기본값 | 권장값 |
+|------|------|--------|--------|
+| `group-id` | Consumer Group ID | - | 서비스명 |
+| `auto-offset-reset` | 초기 Offset | `latest` | `earliest` (개발) |
+| `enable-auto-commit` | 자동 커밋 | `true` | 상황에 따라 |
+| `max-poll-records` | 한번에 가져올 최대 레코드 | `500` | `500` |
+
+---
 
 ## JSON 메시지 처리
 
@@ -217,6 +234,8 @@ public void consume(OrderEvent event) {
 }
 ```
 
+---
+
 ## 프로필별 설정
 
 ### application.yml (공통)
@@ -248,6 +267,8 @@ spring:
     consumer:
       auto-offset-reset: latest
 ```
+
+---
 
 ## 일반적인 오류와 해결
 
@@ -310,8 +331,10 @@ group.id is required
 spring:
   kafka:
     consumer:
-      group-id: my-service
+      group-id: quickstart-group
 ```
+
+---
 
 ## 설정 확인 체크리스트
 
@@ -323,6 +346,9 @@ spring:
 - [ ] Consumer group-id 설정됨
 - [ ] (JSON 사용 시) trusted.packages 설정됨
 
+---
+
 ## 다음 단계
 
 - [기본 예제](../basic/) - Producer/Consumer 구현
+- [주문 시스템](../order-system/) - 실전 예제
