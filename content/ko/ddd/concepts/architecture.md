@@ -1514,6 +1514,6 @@ public class OrderController {
 
 ## 다음 단계
 
-- [CQRS](../cqrs) - Command Query Responsibility Segregation
-- [테스트 전략](../testing) - 아키텍처별 테스트 방법
-- [Anti-patterns](../anti-patterns) - 피해야 할 실수들
+- [CQRS](../cqrs/) - Command Query Responsibility Segregation
+- [테스트 전략](../testing/) - 아키텍처별 테스트 방법
+- [안티패턴](../anti-patterns/) - 피해야 할 실수들
