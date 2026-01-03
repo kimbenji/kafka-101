@@ -38,6 +38,7 @@ outputs:
 params:
   author:
     name: kimbenji
+    email: d8lzz1gpw@mozmail.com
 
   showVisitedLinks: true
   disableLandingPageButton: false

@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://kimbenji.github.io/advanced-beginner/ko/sitemap.xml</loc><lastmod>2026-01-03T17:30:58+09:00</lastmod></sitemap></sitemapindex>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <sitemap>
+    <loc>http://localhost:1313/advanced-beginner/ko/sitemap.xml</loc>
+    
+      <lastmod>2026-01-03T20:56:58+09:00</lastmod>
+    
+  </sitemap>
+  
+</sitemapindex>
